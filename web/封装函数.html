@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+	<script>
+		/*window.onload=function(){
+
+			var d=new Date();
+			var year=d.getFullYear();
+
+			var month=d.getMonth()+1;
+			if(month<10){
+				month="0"+month;
+			}
+			var day=d.getDate();
+			if(day<10){
+				day="0"+day;
+			}
+			var hour=d.getHours();
+			var minute=d.getMinutes();
+			var second=d.getSeconds();
+			document.write(year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second);
+			
+			
+
+
+
+
+		}*/
+		//判断闰年
+		function isLeapYear(year){
+			var result;
+			if(year%4==0&&year%100!=0||year%400==0){
+
+				result=true;
+
+			}
+			else{
+
+				result=false;
+			}
+			return result;
+
+
+		}
+		//日期转换格式
+
+		function toFormat(dateobj,splitstr){
+			if(splitstr==undefined){
+				splitstr="";
+
+			}
+			var year=dateobj.getFullYear();
+			var month=dateobj.getMonth()+1;
+			if(month<10){
+				month="0"+month;
+			}
+			var day=dateobj.getDate();
+			if(day<10){
+				day="0"+day;
+			}
+			
+			return year+splitstr+month+splitstr+day;
+
+
+		}
+
+		//var d=new Date();
+		//alert(toFormat(d,"/"));
+		
+	
+		//封装传入几月返回这个月有多少天
+
+		function getMonthlength(month){
+			var dobj=new Date();
+			dobj.setMonth(month);
+			dobj.setDate(0);
+			return dobj.getDate();
+
+
+		}
+		//alert(getMonthlength(5))
+		//传入数，日期自动变化几天
+		 function addDays(day){
+		 	var dobj=new Date();
+		 	var s=dobj.getTime();
+		 	var ds=day*24*60*60*1000;
+		 	var dbs=new Date(ds+s);
+		 	return toFormat(dbs,"-");
+		 }
+		// var ssss=addDays(5);
+		 //alert(ssss)
+		 //判断发布日期与结束日期的时间差
+		 function getdiff(starttime,endtime){
+		 	var stime=new Date(starttime);
+		 	var etime=new Date(endtime);
+		 	var diff=Math.abs(stime.getTime()-etime.getTime());
+
+		 	var result="";
+		 	if(diff<1000*60){
+		 		result="刚刚";
+
+		 	}
+		 	else if(diff>=60*1000&&diff<60*60*1000){
+		 		result=Math.floor(diff/(60*1000))+"分钟前";
+		 	}
+		 	
+		 	else if(diff>=60*60*1000&&diff<24*60*60*1000){
+		 		result=	Math.floor(diff/(60*60*1000))+"小时前";
+		 	}
+		 	else{
+		 		result=Math.floor(diff/(24*60*60*1000))+"天前";
+
+		 	}
+		 	return result;
+
+
+		 }
+		 var ddd=getdiff("2012/05/13 14:00:08","2012/05/13 14:03:50")
+		 alert(ddd)
+
+	</script>
+
+	
+		
+</head>
+		
+<body>
+	
+
+	
+	
+	
+	
+		
+</body>
+		
+</html>

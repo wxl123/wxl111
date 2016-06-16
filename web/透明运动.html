@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" >
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		.no{
+			margin-left:150px;
+		}
+
+	</style>
+		
+	
+
+
+
+	
+		
+</head>
+		
+<body>
+
+	<div style="width:80px;height:80px;background:blue;position:absolute;opacity:0.5;left:0;top:0" id="div1">
+		hudshahgah
+	</div>
+	<input type="button" value="向下" id="btn1" class="no">
+	<input type="button" value="回到原点" id="btn2" class="no">
+
+	
+	
+	<script>
+		
+		var div1=document.getElementById("div1");
+		btn1.onclick=function(){
+			startMove(div1,{left:400,top:400},function(){
+				startMove(div1,{width:200,height:200})//第一次传递的JSON对象运动停止后程序运行回调函数然后在执行此代码中的程序可以在调用运动函数让他再次进行调用进行运动
+			})
+
+		}
+		btn2.onclick=function(){
+			startMove(div1,{left:0,top:0})
+
+		}
+		function getMystyle(element,attr){
+			var attrValue;
+			if(element.currentStyle){
+				attrValue=element.currentStyle[attr];
+			}
+			else{
+				attrValue=window.getComputedStyle(element,null)[attr];
+			}
+			return attrValue;
+		}
+		function startMove(obj,attrJSON,callback){
+			clearInterval(obj.timer);//需先清空一下自己的定时器是因为，例如：当一个DIV向左移动但是还未到终点，你又点击了向右移动，如果不清空向左向右的定时器都开着此时浏览器不知道去哪，所以需要先清空你上一次保存的定时器又因为是同一个对象下的定时器所以清除自己的可以将上次的进行清空
+			obj.timer=setInterval(function(){//使用js对象动态创建属性来保存定时器因为这样可以做到独立运动，如果使用全局变量来保存例如当有多个div调用这个运动函数时就将前面的定时器给清空了，假如前面还不想清空，但是你挪到另一个div上又触发了此运动函数首先进行清空定时器，所以这样我们需使用JS动态属性创建的思想保存自己的定时器，因为你传过来的元素对像是不一样的所以在挪到另一个div上触发此函数就不会将上一个清空这样就做到了独立运动
+				var targetCount=0;//定义变量用来保存穿过来JSON对象中的目标值全都达到后进行技数然后与下面变量进行判断是否相等，如相等代表所有想运动的属性达到目标此时就可以将定时器清空
+				var jsonCount=0;//每次遍历JSON对象下的属性时进行技数，将穿过来多少个想运动的目标进行技数，然后当与上面技技数的变量做相等判断后再清空定时器，如不做相等判断，有的先达到目标值，你就将定时器清空，这样就会造成其他目标值未达到现象，，我们把这种解决方式叫做全值运动
+				for(var attrName in attrJSON){
+					jsonCount++;//记录属性的个数
+					var curValue;//当前值
+
+					if(attrName=="opacity"){
+						curValue=parseInt(getMystyle(obj,attrName)*100)
+					//先获取属性值的当前值，因为opacity比较特殊没有单位，在IE中及其他浏览器获取的透明度都是小数，然后我们乘以100获得一个整数值
+											
+					}
+					else{
+						curValue=parseInt(getMystyle(obj,attrName));
+							//获的其他属性的属性值然后为了将单位“px”去掉所以进行取了整
+					}
+						
+					var speed=(attrJSON[attrName]-curValue)/8;//目标值-当前值除以一个时间或的增长速度，因为当前值是离目标值越来越近所以speed是越来越慢做了缓冲运动					
+					speed=speed>0?Math.ceil(speed):Math.floor(speed);//如果speed是正数不向上取整会离目标值还有一段距离，因为小数问题，为了让它加的大点所以对正数做向上取整，如果为负数，为了让他减的多点才能达到目标值，所以对负数做了向下取整
+					
+					if(curValue==attrJSON[attrName]){
+						targetCount++;//如果达到了目标值，让计目标值达到的技数器进行技数
+						
+					}
+					else{//否则还是在运动中，这是我们就需要属性值=当前值+求出的速度
+						if(attrName=="opacity"){
+
+							obj.style.opacity=(curValue+speed)/100;
+							obj.style.filter="alpha(opacity:"+(curValue+speed)+")";
+						}
+						else{
+							obj.style[attrName]=curValue+speed+"px";
+
+						}
+
+					}
+
+				}
+
+				if(targetCount==jsonCount){				
+					clearInterval(obj.timer);//清空定时器
+					if(callback){//如果穿过来的有回调函数，再进行调用，这样用户就可以继续做调用运动函数，运动就可以达到链式调用
+						callback();
+					}
+				}				
+
+			},20)
+
+		}
+
+
+	</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+	
+		
+</body>
+		
+</html>

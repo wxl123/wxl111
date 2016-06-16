@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+	<style type="text/css">
+		*{
+			margin:0;padding:0;
+		}
+		ul,ol{list-style:none;}
+		
+		ul li{		
+			position:absolute;
+		}
+		#box{
+			width:560px;
+			height:350px;
+			margin:50px auto;
+			position:relative;
+
+		}
+		.leftbtn,.rightbtn{
+			display:block;
+			width:48px;
+			height:50px;
+			background:url(img/btn.png);
+			position:absolute;
+			z-index:99999;
+		}
+		.leftbtn{
+			top:120px;
+			background-position:0 55px;
+		}
+		.rightbtn{
+			top:120px;
+			left:511px;
+			background-position:49px 55px;
+		}
+		.op{
+			width:100%;
+			height:50px;
+			opacity:0.5;
+			filter:alpha(opacity=50);
+			background:#000;
+			position:absolute;
+			z-index:8888;
+			bottom:0;
+			
+		}
+
+		ol{
+			position:absolute;
+			z-index:8888;
+			bottom:0;
+			
+			
+		}
+
+		ol li{
+			float:left;
+			padding:0 10px;
+		}
+		ol li img{
+			width:86px;
+			height:40px;
+			border:2px solid #fff;
+
+		}
+
+
+
+
+
+
+	</style>
+		
+	
+	<script src="../js王新来作业/module.js"></script>
+	<script>
+		window.onload=function(){
+		/*	*
+			***
+			*****
+			*******
+			*********
+			***********
+			*************
+			***************
+			*****************
+			*******************
+		*/
+			/*for(var i=0;i<10;i++){
+				for(var j=0;j<2*i+1;j++){
+					if(i<9){
+						if(j==0||j==2*i){
+							document.write("*");
+						}
+						else{
+							document.write("&ensp;")
+						}
+
+					}
+					else{
+						document.write("*");
+					}
+					
+				}
+				document.write("<br/>")
+			}*/
+
+
+			/*arr1 = [10,20,8,9,3,2,1,2,2,2,8];
+			function superSort(arr){
+				for (var i=0;i<arr.length-1;i++ ){
+					for(j=0;j<arr.length-1;j++){
+						if(arr[j]>arr[j+1]){
+							var temp=arr[j];
+							arr[j]=arr[j+1];
+							arr[j+1]=temp;
+						}
+						if(arr[j]==arr[j+1]){
+							arr.splice(j,1);
+						}
+					}
+				}
+				return arr;
+			}
+			superSort(arr1);
+			
+
+
+			function fbnq(a1){
+				if(a1==0){
+					return 1;
+				
+				}
+				if(a1==1){
+					return 1;
+				}
+				return fbnq(a1-2)+fbnq(a1-1);
+			}*/
+	
+			var Rbn=getMyClassName("rightbtn")[0];
+			var Lbn=getMyClassName("leftbtn")[0];
+			var useLi=document. getElementById("big").getElementsByTagName("li");
+			var oLi=document.getElementById("small").getElementsByTagName("li");
+			var i=0;
+			var index=1;
+			Rbn.onclick=function(){
+				useLi[i].style.zIndex=index++;
+				for(var j=0;j<oLi.length;j++){
+					oLi[j].children[0].style.border="2px solid #fff";
+				}
+				oLi[i].children[0].style.border="2px dashed #f00";			
+				i++;
+				if(i==5){
+					i=0;
+				}
+			}
+			setInterval(Rbn.onclick,2000);
+			Lbn.onclick=function(){
+				i--;
+				if(i<0){
+					i=4;
+				}
+				for(var j=oLi.length-1;j>=0;j--){
+					oLi[j].children[0].style.border="2px solid #fff";
+				}
+				oLi[i].children[0].style.border="2px dashed #f00";
+				useLi[i].style.zIndex=index++;
+				
+			}
+
+
+
+		}
+		
+	</script>
+
+	
+		
+</head>
+		
+<body>
+	<div id="box">
+		<ul id="big">
+			<li><img src="img/1a.jpg" alt=""></li>
+			<li><img src="img/2a.jpg" alt=""></li>
+			<li><img src="img/3a.jpg" alt=""></li>
+			<li><img src="img/4a.jpg" alt=""></li>
+			<li><img src="img/5a.jpg" alt=""></li>		
+		</ul>
+		<span class="leftbtn"></span>
+		<span class="rightbtn"></span>
+		<div class="op"></div>
+		<ol id="small">		
+			<li><img src="img/1a.jpg" alt=""></li>
+			<li><img src="img/2a.jpg" alt=""></li>
+			<li><img src="img/3a.jpg" alt=""></li>
+			<li><img src="img/4a.jpg" alt=""></li>
+			<li><img src="img/5a.jpg" alt=""></li>
+		</ol>
+		
+	</div>
+	
+	
+	
+		
+</body>
+		
+</html>

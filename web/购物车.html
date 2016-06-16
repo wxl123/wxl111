@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+	<style type="text/css">
+		*{margin:0;padding:0;}
+		ul,ol,dl{list-style:none;}
+		#container{
+			width:1101px;
+			height:407px;
+			margin:0 auto;			
+		}
+		ul li{
+			float:left;
+			margin-right:10px;
+			padding:0 22px;
+			width:217px;
+			height:356px;
+			border:1px solid #e2e2e2;
+		}
+		ul li em{
+			display:block;
+			margin-bottom:17px;
+			font-size:23px;
+			color:#c5464d;
+			font-style:italic;
+		}
+		ul li p{
+			font-size:14px;
+			color:#8b3e4e;
+		}
+		ul li input{
+			margin-left:47px;
+			width:120px;
+			height:30px;
+			border:1px solid #e2e2e2;
+			margin-top:20px;
+			font-size:14px;
+			color:#8b3e4e;
+			background:#fff;
+		}
+		#zs #chart-list{
+			width:1101px;
+			margin:0 auto;	
+		}
+		h3{
+			color:#a74254;
+			margin-bottom:14px;
+		}
+		.listhead{
+			background:#f3f3f3;
+			width:96%;
+			height:40px;
+			line-height:40px;
+			padding:0 2% 0 2%;
+
+		}
+		.h1,.c1{
+			width:60%;
+			float:left;
+			font-size:12px;
+
+
+		}
+		.h2,.c2{
+			width:20%;
+			float:left;
+			font-size:12px;
+		}
+		.h3,.c3{
+			width:20%;
+			float:left;
+			font-size:12px;
+		}
+		.p1{
+			background:#f3f3f3;
+			border-bottom:1px solid #000;
+			height:82px;
+		}
+		.c1{
+			width:59.5%;
+			
+
+		}
+
+		.c1 span img{
+			height:80px;
+		}
+		.c1 span{
+			display:block;
+			padding-left:20px;
+			float:left;
+
+		}
+		.c1 p{
+			padding-left:20px;
+			float:left;
+			margin-top:30px;
+		}
+		.c2{
+			padding-top:30px;
+			width:19.5%;
+	
+		}
+		.c3{
+			padding-top:30px;
+
+
+		}
+	 
+	</style>
+	
+	<script src="../js王新来作业/module.js"></script>
+	<script> 
+		window.onload=function(){
+			
+			getshopcar();//为了让页面刷新时加入购物车的商品能显示，需在这里让他执行一下这个函数将cookie中的信息加入进去，如果不加这句，刷新时加入购物车的产品网页上看不见。
+			var contain=document.getElementById("container");
+			var dj=contain.getElementsByTagName("input");
+			for(i=0;i<dj.length;i++){
+				dj[i].onclick=function(){
+					var img=this.parentNode.children[0].innerHTML;//使用innnerHTML是因为想获得字符类型
+					var price=this.parentNode.children[1].innerHTML;
+					var product=this.parentNode.children[2].innerHTML;
+					
+					var ck=getCookie("shopcart");// 得到cookie中的值 注意getcookie方法如果不进行转码会将创建的cookie中的img src=""也会按照=给分割，进行转码后=就没有了变成了%号什么就不会在将其分割了。
+					if(ck==""){//需先得到cookie中的值后判断cookie中的值是否为空，空代表第加入的是第一个产品信息，直接拼接不用加"|"
+
+						ck=img+"#"+price+"#"+product;//使用这种分割方法是为了好分割成列
+
+					}
+					else{//否则不是第一个产品信息需与|相连
+						ck+="|"+img+"#"+price+"#"+product;//使用这种分割方法是为了好分割成行，利于后面插入到元素中
+					}
+					//目的是想拼接成img1#price#pdoduct|img2#price#product|img3#price#product这样有利于后面按|分割并按行添加，按#分割后按列添加，这样会相应的添加到对应的地方
+					var date=new Date();
+					date.setDate(date.getDate()+3)
+					setCookie("shopcart",ck,date);
+					getshopcar();//将cookie中的信息进行展现到网页中
+					
+
+
+
+					
+
+				}
+
+			}
+			
+			
+
+
+		
+
+
+			
+
+		}
+		function getshopcar(){
+				var chart=document.getElementById("chart-list");
+				var ck=getCookie("shopcart");
+				var ck1=ck==""?[]:ck.split("|");//如果不加ck==""给他个空数组的话，ck=""的话被分割后数组长度是1，循环还能跑一次，此时img price product 都是undefined，所以为了让循环进不来，所以为ck赋了个空数组，因为空数组的长度的是0，所以进不来，赋值方法用的是三目运算做了判断。
+				var html="";//为了让其累加所以将其定义在for循环的外边，在里边起不到累加的效果每一次循环都是他自己
+				for(var i=0;i<ck1.length;i++){
+					var img=ck1[i].split("#")[0];
+					var price=ck1[i].split("#")[1];
+					var product=ck1[i].split("#")[2];
+					html+="<div class=p1>"
+						+ "<div class=\"c1\">"
+						+ "<span>"+img+"</span>"
+						+ "<p>"+product+"</p>"
+						+ "</div>"
+						+ "<div class=\"c2\">"+price+"</div>"
+						+ "<div class=\"c3\"><a href=\"javascript:delshopCart('"+product+"');\">删除</a></div>"
+						+ "</div>"
+					
+
+
+				}
+				chart.innerHTML=html;
+
+		}
+		function delshopCart(pname){
+			var ck=getCookie("shopcart");//先得到cookie中的值
+			var ckList=ck.split("|");//将cookie进行分割按照|			
+			var arr=[];//定义一个空数组为了将将删除项的product内容与遍历中的值进行比较将不是的放入数组，然后在将数组用|连成字符串进行在放进名为shopcart的cookie中然后再运行一遍将cookie中的内容插到html相应的位置中这样就可以将将其点击的那一项删除了，还保留了其他没被点击的因为你点击哪一个Pname值就是哪一个
+
+
+			for(var i=0;i<ckList.length;i++){
+				var cname= ckList[i].split("#")[2];
+				if(cname!=pname){
+					arr.push(ckList[i]);
+
+				}
+
+			}
+		
+			var date=new Date();
+			date.setDate(date.getDate()+3)
+			
+			setCookie("shopcart",arr.join("|"),date)
+			
+			getshopcar();
+
+
+
+			
+
+		}
+
+
+		
+	</script>
+
+	
+		
+</head>
+		
+<body>
+	<div id="container">
+		<ul>
+			<li>
+				<span><img src="img/1.jpg" alt=""></span>				
+				<em>&yen;2999</em>
+				<p>乐视超级电视s50</p>
+				<input type="button" id="gw" value="加入购物车"/>
+			</li>
+			<li>
+				<span><img src="img/2.jpg" alt=""></span>	
+				<em>&yen;3999</em>
+				<p>乐视超级电视s60</p>
+				<input type="button" id="gw" value="加入购物车"/>
+			</li>
+			<li>
+				<span><img src="img/3.jpg" alt=""></span>	
+				<em>&yen;4999</em>
+				<p>乐视超级电视s70</p>
+				<input type="button" id="gw" value="加入购物车"/>
+			</li>
+			<li>
+				<span><img src="img/4.jpg" alt=""></span>	
+				<em>&yen;5999</em>
+				<p>乐视超级电视s80</p>
+				<input type="button" id="gw" value="加入购物车"/>
+			</li>
+		</ul>
+	</div>
+	<div id="zs">
+		<h3>全部商品</h3>
+		<div class="listhead">
+			<div class="h1">商品名称</div>
+			<div class="h2">价格</div>
+			<div class="h3">操作</div>
+		</div>
+		
+
+	</div>
+	<div id="chart-list">		
+		<!-- <div class="c1">
+			<span><img src="img/1.jpg"></span>
+			<p>乐视超级电视 S50</p>
+		</div>
+		<div class="c2">&yen;1000</div>
+		<div class="c3"><a href="#">删除</a></div> -->
+	
+	</div>
+	
+	
+
+	
+	
+		
+</body>
+		
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" >
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		/* .ball{
+			width:30px;
+			height:30px;
+			border-radius:50%;
+			background:red;
+			position:absolute;
+			left:0;
+		}
+		.no{
+			width:10px;
+			height:10px;
+			border:1px solid red;
+			background: red;
+			position:absolute;
+			left:0;
+		}
+		
+		 */
+	</style>
+		
+	
+	<script src="../jsÍõÐÂÀ´×÷Òµ/module.js"></script>
+
+
+	
+		
+</head>
+		
+<body>
+	<div style="width:500px;height:300px;border-right:1px solid #000" id="div1">
+		<input type="button" value="向右运动" id="btn1">
+		<input type="button" value="向左运动" id="btn2">
+	</div>
+	<div style="width:80px;height:80px;background:blue;position:absolute;left:0;top:120px" id="div2">
+
+	</div>
+
+	
+	<script>
+	
+
+			/*var ball=document.createElement("div");
+			ball.className="ball"
+			document.body.appendChild(ball);
+			var mx=0;
+			var my=0;
+			document.onmousemove=function(e){
+				e=e||event;
+				mx=e.clientX;
+				my=e.clientY;
+
+
+			}
+
+			var a=0.1;
+			var r=100;
+			setInterval(function(){
+				ball.style.left=mx+Math.cos(a)*r+"px";
+				ball.style.top=my+Math.sin(a)*r+"px"
+				a+=0.1;
+			},20)*/
+
+		/*var ball=document.getElementById("ball")
+		var a=0.1;
+		var r=50;
+		function dd(){
+			var div=document.createElement("div");
+			div.className="no";
+			ball.appendChild(div);			
+			div.style.left=r+Math.cos(a)*r-(div.offsetWidth)/2+"px";
+			div.style.top=r+Math.sin(a)*r-(div.offsetHeight)/2+"px";
+			a+=0.5
+
+		}
+		for(var i=0;i<13;i++){
+			dd();
+		}*/
+		var btn1=document.getElementById("btn1");
+		var btn2=document.getElementById("btn2");
+		var div1=document.getElementById("div1");
+		var div2=document.getElementById("div2");
+		var timer;
+		var target=420;
+		var target1=0
+		btn1.onclick=function(){
+			clearInterval(timer);//与下面的思想同理，当点击向右然后点击了向左，需要先把向左的定时器清掉，然后才可以向右行走，此时定时器保存的是向左的定时器
+
+			timer=setInterval(function(){
+				var speed=Math.ceil((target-div2.offsetLeft)/3)
+				div2.style.left=div2.offsetLeft+speed+"px";
+				if(div2.offsetLeft==target){
+					clearInterval(timer)
+				}
+
+			},20)
+			
+
+		}
+		btn2.onclick=function(){
+			clearInterval(timer)//如果点击向右还没走到头再点击向左此时需要先清掉向右的定时器，定时器定的是一个全局变量，所以可以保存着向右的定时器，然后清掉就可以，就可以解决这样点击后即不向右又不向左的问题
+			timer=setInterval(function(){
+				var speed=Math.floor((target1-div2.offsetLeft)/3)
+				div2.style.left=div2.offsetLeft+speed+"px";
+				if(div2.offsetLeft==target1){
+					clearInterval(timer)
+				}
+
+			},40)
+
+		}
+
+		
+
+	</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+	
+		
+</body
+		
+</html>

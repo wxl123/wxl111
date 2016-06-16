@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		#container{
+			width:1000px;
+			height:500px;
+			background:#000;
+			margin:50px auto;
+			position:relative;
+		}
+		.ball{
+			width:30px;
+			height:30px;
+			border-radius:50%;
+			background:red;
+			position:absolute;
+			left:0;
+		}
+
+	</style>
+		
+	
+	<script src="../js王新来作业/module.js"></script>
+
+
+	
+		
+</head>
+		
+<body>
+	<div id="container"></div>
+
+
+	<script>
+		var contain=document.getElementById("container");
+		function creatball(x,y,sx,sy){
+			var ball=document.createElement("div");
+			ball.className="ball";
+			if(x>=contain.offsetWidth-30){
+				x=x-30;
+			}
+			if(y>=contain.offsetHeight-30){
+				y=y-30;
+			}
+			ball.style.left=x+"px";
+			ball.style.top=y+"px";
+			var n1=Math.floor(255*Math.random());
+			var n2=Math.floor(255*Math.random());
+			var n3=Math.floor(255*Math.random());
+			ball.style.background="rgb("+n1+","+n2+","+n3+")";
+			contain.appendChild(ball);
+			var speedX=sx;
+			var speedY=sy;
+			var timer=setInterval(function(){			
+				ball.style.left=ball.offsetLeft+speedX+"px";
+				ball.style.top=ball.offsetTop+speedY+"px";
+				if(ball.offsetLeft>=contain.offsetWidth-ball.offsetWidth||ball.offsetLeft<=0){
+					speedX*=-1;
+				}
+				if(ball.offsetTop>=contain.offsetHeight-ball.offsetHeight||ball.offsetTop<=0){
+					speedY*=-1;
+				}
+
+			},20)
+		}
+		for(var i=0;i<50;i++){
+			var rx=Math.floor(contain.offsetWidth*Math.random());
+			var ry=Math.floor(contain.offsetHeight*Math.random());
+			var sx=Math.floor(10*Math.random());
+			var sy=Math.floor(8*Math.random());
+			creatball(rx,ry,sx,sy);
+
+
+		}
+
+
+
+
+
+
+	</script>
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+	
+		
+</body
+		
+</html>

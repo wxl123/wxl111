@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" >
+	<style type="text/css">
+		#people{
+			width:48px;
+			height:40px;
+			background:url(img1/1.gif);
+			position:absolute;			
+		}
+
+	</style>
+	<script src="startMove.js"></script>
+				
+</head>
+		
+<body>
+	<div id="people"></div>
+
+
+	<script>
+		var p=document.getElementById("people");
+		document.onclick=function(e){
+			e=e||event;
+			p.style.background="url(img1/2.gif)";
+			p.style.width="66px";
+			p.style.height="45px";
+			startMove(p,{left:e.clientX,top:e.clientY},function(){
+				p.style.background="url(img1/1.gif)";
+				p.style.width="48px";
+				p.style.height="40px";
+			})
+
+		}
+		/*window.onload=function(){
+			var arr=[];
+			var p=document.getElementById("people");
+			document.onmousedown=function(e){
+				e=e||event;
+				p.style.background="url(img1/2.gif)";
+				p.style.width="66px";
+				p.style.height="45px";
+				if(e.button==1||e.button==0){
+					var ff=creatdiv(e);	
+					var obj={x:e.clientX,y:e.clientY,o:ff};
+					arr.push(obj);			
+					document.onmousemove=function(e){
+						e=e||event;										
+						var sf=creatdiv(e);
+						var obj={x:e.clientX,y:e.clientY,o:sf};
+						arr.push(obj);						
+					}
+					document.onmouseup=function(){
+						document.onmousemove=null;
+						var timer=setInterval(function(){
+							if(arr.length==0){
+								clearInterval(timer);
+								p.style.background="url(img1/1.gif)";
+								p.style.width="48px";
+								p.style.height="40px";
+							}
+							else{
+								p.style.left=arr[0].x+"px";
+								p.style.top=arr[0].y+"px";
+								document.body.removeChild(arr[0].o);
+								arr.shift();
+							}							
+
+						},20)
+					}
+
+				}								
+
+			}
+		}
+		function creatdiv(e){
+			var div=document.createElement("div");
+			div.style.width="4px";
+			div.style.height="4px";
+			div.style.background="red";
+			div.style.position="absolute";
+			div.style.left=e.clientX+"px";
+			div.style.top=e.clientY+"px";
+			document.body.appendChild(div);
+			return div;
+
+		}
+*/
+	</script>
+		
+</body>
+		
+</html>

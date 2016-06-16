@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+	<style type="text/css">
+		*{margin:0;padding:0;}
+		#cover{
+			position:absolute;
+			z-index: 10;
+			background:#000;
+			opacity: 0.6;
+			filter:alpha(opacity=60);
+			width:100%;
+			height:100%;
+			display:none;
+		}
+		#btn1{
+			position:absolute;
+		}
+		#lyb{
+			width:401px;
+			height:303px;
+			background:#fff;
+			position:absolute;
+			z-index: 12;
+			display:none;
+
+		}
+		#lyb #head{
+			text-align:center;
+			border-bottom:1px solid #000;
+			width:100%;
+			height:32px;
+			line-height:32px;
+			font-size:24px;
+			font-weight:bold;
+			margin-bottom:5px;
+
+		}
+		label{
+			float:left;
+			text-align:right
+		}
+		
+		.clear{
+			clear:left;
+		}
+		#text{
+			display:block;
+			float:left;
+			margin-left:5px;
+			width:300px;
+		}
+		#ta{
+			display:block;
+			float:left;
+			width:300px;
+			height:146px;
+			margin-left:20px;
+			margin-top:10px;
+
+		}
+		#sure{
+			margin-left:60px;
+
+		}
+		#content{
+			width:500px;
+			height:500px;
+			border:1px solid #f00;
+			margin:0 auto;
+		}
+		
+
+
+
+
+
+	</style>
+		
+	
+	<script src="../js王新来作业/module.js"></script>
+	<script>
+		window.onload=function(){
+			var ly=document.getElementById("btn1");
+			var cove=document.getElementById("cover");
+			var lyb=document.getElementById("lyb");
+			var close=document.getElementById("close");
+			var head=document.getElementById("head");
+			var userName=document.getElementById("text");
+			ly.onclick=function(){
+				cover.style.display="block";
+				lyb.style.display="block";
+				if(getCookie("DX")==""&&getCookie("DY")==""){
+					lyb.style.left=(getClientWidth()-lyb.offsetWidth)/2+"px";
+					lyb.style.top=(getClientHeight()-lyb.offsetHeight)/2+"px";
+				}
+				else{
+					lyb.style.left=getCookie("DX")+"px";
+					lyb.style.top=getCookie("DY")+"px"
+				}
+
+				close.onclick=function(){
+					cover.style.display="none";
+					lyb.style.display="none";
+				}
+				head.onmousedown=function(e){
+					e=e||event;
+					if(e.preventDefault){
+						e.preventDefault();
+					}
+					else{
+						e.returnValue=false;
+					}
+					if(e.button==1||e.button==0){
+						this.style.cursor="move";
+						var dx=e.clientX-lyb.offsetLeft;
+						var dy=e.clientY-lyb.offsetTop;
+						var x=0;
+						var y=0;
+						document.onmousemove=function(e){
+							e=e||event;
+							 x=e.clientX-dx;
+							 y=e.clientY-dy;
+							if(x<=0){
+								x=0;
+							}
+							if(y<=0){
+								y=0;
+							}
+							if(x>=getClientWidth()-lyb.offsetWidth){
+								x=getClientWidth()-lyb.offsetWidth;
+							}
+							if(y>=getClientHeight()-lyb.offsetHeight){
+								y=getClientHeight()-lyb.offsetHeight;
+							}
+							lyb.style.left=x+"px";
+							lyb.style.top=y+"px";
+						}
+						document.onmouseup=function(){
+							document.onmousemove=null;
+							head.style.cursor="auto";
+							var date=new Date();
+							date.setDate(date.getDate()+3);
+							setCookie("DX",x,date);
+							setCookie("DY",y,date);
+						}
+						
+					}
+
+				}
+				var sure=document.getElementById("sure");
+				var text=document.getElementById("text");
+				var ta=document.getElementById("ta");
+				sure.onclick=function(){	
+					cover.style.display="none";
+					lyb.style.display="none";
+					var tb= document.createElement("table");
+					tb.border=1;
+					content.appendChild(tb)
+					var tbody= document.createElement("tbody");
+					tb.appendChild(tbody);
+					var tr= document.createElement("tr");
+					tbody.appendChild(tr);
+					var td1=document.createElement("td");
+					td1.innerHTML=text.value;
+					tr.appendChild(td1);
+					var td2=document.createElement("td");
+					td2.innerHTML=ta.value;
+					tr.appendChild(td2);
+					var td3=document.createElement("td");
+					td3.innerHTML="<a href='#' id='a1'>删除</a>";
+					tr.appendChild(td3);
+					td3.onclick=function(){
+						tr.removeChild(td1);
+						tr.removeChild(td2);
+						tr.removeChild(td3);
+						tbody.removeChild(tr);
+						content.removeChild(tb)
+
+
+					}
+
+					
+
+
+
+				}
+
+				
+			}
+			
+			
+			
+				
+			
+
+			
+
+
+		}
+
+		
+	</script>
+
+	
+		
+</head>
+		
+<body>
+	<div id="cover"></div>
+	<input type="button" id="btn1" value="留言"/>
+	<div id="lyb">
+		<div id="head">留言板</div>
+		<label>用户名:</label><input type="text" id="text"/>
+		<div class="clear"></div>
+		<label>内容:</label><input type="textarea" id="ta"/>
+		<div class="clear"></div>
+		<input type="button" id="sure" value="确定"/>
+		<input type="button" id="close" value="关闭"/>
+
+
+	</div>
+	<div id="content">
+		
+		
+	</div>
+	
+	
+	
+	
+		
+</body>
+		
+</html>
