@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>网页微信</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script type="text/javascript" src="../../js王新来作业/module.js"></script>
+	<script type="text/javascript">
+		window.onload=function(){
+			var cHeight=getClientHeight()
+			$("sidebar").style.height=cHeight+"px";
+			$("chat").style.height=cHeight+"px";
+			var useList=getMyClassName($("sidebar"),"userlist")[0];
+			var dList=useList.getElementsByTagName("li");			
+			$("searchBox").onkeyup=function(){
+				var sValue=$("searchBox").value;				
+				for(var i=0;i<dList.length;i++){
+					if(dList[i].children[1].innerHTML.search(sValue)==-1){
+						dList[i].style.display="none";
+					}
+					else{
+						dList[i].style.display="block";
+					}
+				}
+			}
+			var headPic=document.getElementById("headpic");
+			var myinfoPic=document.getElementById("myinfopic");
+			headPic.onmousemove=function(){
+				myinfoPic.style.display="block";
+			}
+			headPic.onmouseout=function(){
+				myinfoPic.style.display="none";
+			}
+			for(i=0;i<dList.length;i++){
+				dList[i].onclick=function(){
+					for(var j=0;j<dList.length;j++){
+						dList[j].className="";//点击Li后先把每个li样式清空，主要是为了不添加背景色，然后在后面再将点击的再单独加样式添加上背景色这样就可以点击哪个哪个就有背景色，其余的没有
+					}
+					this.className="on";//this代表当前点击的对像,如果使用dList[i].onclick,i已经循环完毕此时i的值是数组长度是个固定值，所以当点击时谁也没加上on这个类名，this就是指向你当前点击的对象
+					var sub=this.children[1];					
+					document.getElementById("username").innerHTML=sub.innerHTML;
+					document.getElementById("requestInfo").innerHTML="";
+					document.getElementById("sendInfo").style.display="block";
+
+				}
+
+			}
+			var sendBtn=document.getElementById("sendBtn")
+			sendBtn.onclick=function(){
+				send();
+			}
+			sendcontent.onkeyup=function(e){
+				e=e||event;
+				if(e.keyCode==13&&e.altKey){
+					send();
+				}
+			}
+
+
+		}
+		function remove(obj){
+			obj.parentNode.removeChild(obj);//需将函数写在window.onload之外，要不然调用不到因为上边的调用是放在了全局作用域下，而将函数如果放在window.onload之内全局作用域是不可能找到wiindow.onload之内的函数，，，注意2：removeChild()必须使用它的直接父级元素，不能使用父级的父级
+
+		}
+		function send(){
+			var sendcontent=document.getElementById("sendcontent");
+			var sCtr=sendcontent.value;
+			var refo=document.getElementById("requestInfo");
+			refo.innerHTML+= "<div class=\"infolist\" ondblclick=remove(this)>"
+							+ "<label>"+sCtr+"</label>"
+							+ "<span><img src=\"img/headimg.png\"/></span>"
+							+ "</div>"
+							+ "<div class=\"clear\"></div>";
+			sendcontent.value="";
+		}
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div id="sidebar">
+			<div class="myinfo">
+				<div id="myinfopic"><img src="img/my.png" /></div>
+				<span id="headpic"><img src="img/headimg.png"></span>
+				<p>Omlee</p>
+				<a href="javascript:;"><img src="img/menu.png" /></a>
+			</div>
+			<div class="clear"></div>
+			<div class="search">
+				<input type="text" placeholder="搜索" id="searchBox"></input>
+			</div>
+			<div class="tab">
+				<ul>
+					<li><span class="on"></span></li>
+					<li><span class="tab2"></span></li>
+					<li><span class="tab3"></span></li>
+				</ul>
+			</div>
+			<ul class="userlist">
+				<li>
+					<span><img src="img/1.jpg" /></span>
+					<label>张三</label>
+				</li>
+				<li>
+					<span><img src="img/2.jpg" /></span>
+					<label>李四</label>
+				</li>
+				<li>
+					<span><img src="img/3.jpg" /></span>
+					<label>王五</label>
+				</li>
+				<li>
+					<span><img src="img/4.jpg" /></span>
+					<label>赵六</label>
+				</li>
+				<li>
+					<span><img src="img/5.jpg" /></span>
+					<label>孙七</label>
+				</li>
+				<li>
+					<span><img src="img/6.jpg" /></span>
+					<label>孙八</label>
+				</li>
+			</ul>
+		</div>
+		<div id="chat">
+			<div id="username"></div>
+			<div class="chatcontent">
+				<div id="requestInfo">
+					<span id="propmtinfo"><img src="img/bg.png" /></span>
+					
+				</div>
+				<div id="sendInfo">
+					<div><textarea id="sendcontent"></textarea></div>
+					<a href="#" id="sendBtn">发 送</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

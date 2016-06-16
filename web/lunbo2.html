@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" >
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		#contain{
+			width:520px;
+			height:280px;
+			position:relative;
+			overflow:hidden;
+			margin:20px auto;
+		}
+		ul{
+			list-style:none;
+			width:3000px;
+			position:absolute;
+		}
+		ul li{
+			float:left;
+		}
+		#leftBtn{
+			display:block;
+			height:60px;
+			width:48px;
+			background:url(img1/btn.png);
+			position:absolute;
+			top:110px;
+			left:-48px;
+			z-index:10;
+			opacity:0;
+			filter:alpha(opacity=0);
+
+		}
+		#rightBtn{
+			display:block;
+			height:60px;
+			width:48px;
+			background:url(img1/btn.png);
+			background-position:-48px 0px;
+			position:absolute;
+			top:110px;
+			right:-48px;
+			z-index:10;
+			opacity:0;
+			filter:alpha(opacity=0);
+
+		}
+		#nav{
+			width:70px;
+			height:18px;
+			background:url(img1/nav.png);
+			position:absolute;
+			left:220px;
+			bottom:3px;
+
+
+		}
+		#nav span{
+			display:block;
+			height:10px;
+			width:10px;
+			border-radius:50%;
+			margin:4px 2px 0 2px;
+			background:#eee;
+			float:left;
+		}
+		#nav .on{
+			background:red;
+		}
+
+		
+	</style>
+	<script src="startMove.js"></script>
+				
+</head>
+		
+<body>
+	<div id="contain">
+		<ul>
+			<li><img src="img1/b1.jpg"></li>
+			<li><img src="img1/b2.jpg"></li>
+			<li><img src="img1/b3.jpg"></li>
+			<li><img src="img1/b4.jpg"></li>
+			<li><img src="img1/b5.jpg"></li>
+		</ul>
+		<a href="#" id="leftBtn"></a>
+		<a href="#" id="rightBtn"></a>
+		<div id="nav">
+			<span class="on"></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+		
+	</div>
+	
+
+
+
+	<script>
+		window.onload=function(){
+			var contain=document.getElementById("contain");
+			var leftBtn=document.getElementById("leftBtn");
+			var rightBtn=document.getElementById("rightBtn");
+			var oUL=document.getElementsByTagName("ul")[0];
+			var first=oUL.children[0].cloneNode(true);
+			oUL.appendChild(first);
+			var imgWidth=oUL.children[0].offsetWidth;
+			oUL.style.width=oUL.children.length*imgWidth+"px";
+			var spanList=document.getElementsByTagName("span");
+			contain.onmouseover=function(){
+				startMove(leftBtn,{left:0,opacity:100});
+				startMove(rightBtn,{right:0,opacity:100});
+			}
+			contain.onmouseout=function(){
+				startMove(leftBtn,{left:-48,opacity:0});
+				startMove(rightBtn,{right:-48,opacity:0});
+			}
+			var curIndex=0;
+			rightBtn.onclick=function(){
+				curIndex++;
+				if(curIndex==oUL.children.length){
+					curIndex=1;
+					oUL.style.left=0+"px";
+				}
+				setNav(curIndex>4?0:curIndex);
+				startMove(oUL,{left:curIndex*imgWidth*-1});
+			}
+			leftBtn.onclick=function(){
+				curIndex--;
+				if(curIndex==-1){
+					curIndex=4;
+					oUL.style.left=(oUL.children.length-1)*imgWidth*-1+"px";
+				}
+				setNav(curIndex);
+				startMove(oUL,{left:curIndex*imgWidth*-1});
+			}
+			for(var i=0;i<spanList.length;i++){
+				spanList[i].index=i;
+				spanList[i].onclick=function(){
+					curIndex=this.index;
+					autoplay();
+					setNav(this.index)
+					startMove(oUL,{left:this.index*imgWidth*-1});
+				}
+
+			}
+			var timer;
+			function autoplay(){
+				clearInterval(timer)
+				timer=setInterval(function(){
+					rightBtn.onclick();
+				},5000)
+			}
+			autoplay();
+			function setNav(index){
+				for(var i=0;i<spanList.length;i++){
+					spanList[i].className="";
+				}
+				spanList[index].className="on";
+
+			}
+			
+					
+		}
+
+
+
+	</script>
+	
+		
+</body>
+		
+</html>

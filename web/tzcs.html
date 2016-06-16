@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+	<style type="text/css">
+		*{margin:0;padding:0;}
+		#tz{width:425px;height:350px;margin:0 auto;}
+		table{width:398px;height:234px;border:1px solid #f00;border-spacing:0;border-collapse:collapse;text-align:center;margin-left:12px;font-size:12px;}
+		h3{height:100px;width:425px;border-bottom:1px solid #d9d9d9;line-height:100px;font-size:45px;color:#5a9954;margin-bottom:10px;}
+		h3 img{float:left;margin-top:10px;margin-left:68px;margin-right:13px;}
+		table td{border:1px solid #d9d9d9;}
+		.cc{background:#f5f5f5;}
+		#jk,#pj{color:red;font-size:18px;font-weight:bold;height:50px}
+		#a2,#a1{width:171px;height:25px;border:1px solid #97c4e1; }
+		
+
+
+
+
+	</style>
+	
+		
+</head>
+		
+<body>
+			
+		
+			
+			
+	<div id="tz">
+	
+		<h3><img src="image/a.jpg"/>体重测试</h3>
+		
+		<table>
+			<tr>
+				<td class="cc">体重:</td>
+				<td>
+					<input type="text"  id="a1">公斤（kg）
+
+				</td>
+
+			</tr>
+			<tr>
+				<td class="cc">身高:</td>
+				<td>
+					<input type="text"  id="a2">厘米（cm）
+				
+				
+				</td>
+
+			</tr>
+			<tr>
+				<td colspan=2>
+					
+					<input type="button"  id="btn" value="进行计算"/>
+				
+				</td>
+				
+
+			</tr>
+			<tr>
+				<td class="cc">健康值:</td>
+				<td id="jk"></td>
+
+			</tr>
+			<tr>
+				<td class="cc">系统评价:</td>
+				<td id="pj"></td>
+
+			</tr>
+		
+		
+		
+		
+		
+		
+		
+		</table>
+	
+	
+	
+	</div>
+			
+			
+		<script>
+			btn.onclick=function(){
+				var num1=a1.value;
+				var num2=a2.value;
+		
+				if(num1==""||num2==""||num1==0&&num2==0||num1<=0||num2<=0||isNaN(num1)||isNaN(num2)){
+				
+					alert("请输入数据");
+
+				}
+				
+			
+				else if (num1>=(num2-100)*0.9-5&&num1<=(num2-100)*0.9+5){
+					jk.innerHTML="你的体重标准";
+					
+					pj.innerHTML="请保持";
+
+				
+				}
+				
+	
+				else if(num1>(num2-100)*0.9+5){
+				
+					jk.innerHTML="超重";
+					
+					pj.innerHTML="请不要再闹了";
+			
+			
+				}
+			
+
+				
+				else{
+					jk.innerHTML="太轻";
+					
+					pj.innerHTML="请锻炼";
+				
+				
+				
+				}
+			
+			
+			
+			
+			
+			
+			
+			}
+		
+		</script>
+		
+</body>
+		
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+	<style type="text/css">
+		*{
+			margin:0;padding:0;
+		}
+		#cover{
+			width:100%;
+			height:100%;
+			display:none;
+			position:absolute;
+			z-index:10;
+			background:#000;
+			opacity:0.6;
+			filter:alpha(opacity=60);
+		}
+		#contain{
+			width:400px;
+			height:370px;
+			display:none;
+			position:absolute;
+			z-index: 12;
+			background:#fff;
+			
+		}
+		#head{
+			width:400px;
+			height:48px;
+			line-height:48px;
+			background:url(../js王新来作业/headbg.png);
+			cursor:pointer;
+		}
+		#head .img1{
+			float:left;
+			margin-top:10px;
+			margin-right:10px;
+			margin-left:10px;
+		}
+		#head .img2{
+			float:right;
+			margin-top:10px;
+			margin-right:10px;
+			
+		}
+		#login-form{
+			text-align:center;
+		}
+		#btn1{
+			float:left;
+		}
+	 
+	</style>
+	
+	<script src="../js王新来作业/module.js"></script>
+	<script>
+		window.onload=function(){
+			/*var btn=document.getElementById("btn");
+			btn.onclick=function(){
+				
+				var tx=document.getElementById("text1").value;
+				var c1=document.getElementById("c1");
+				
+				if(c1.checked){
+					var date=new Date();
+					date.setDate(date.getDate()+3);
+					setCookie("login-name",tx,date);
+				}
+
+			}
+			document.getElementById("text1").value=getCookie("login-name");*/
+			var dl=document.getElementById("btn1");
+			dl.onclick=function(){
+				var zhao=document.getElementById("cover");
+				var login=document.getElementById("contain");
+				zhao.style.display="block";
+				login.style.display="block";
+				
+				if(getCookie("DX")==""&&getCookie("DY")==""){
+					login.style.left=(getClientWidth()-login.offsetWidth)/2+"px";				
+					login.style.top=(getClientHeight()-login.offsetHeight)/2+"px";
+				}
+				else{
+					login.style.left=getCookie("DX")+"px";
+					login.style.top=getCookie("DY")+"px";
+				}
+				
+				var head=document.getElementById("head");
+
+				var close=getMyClassName(head,"img2")[0];
+				close.onclick=function(){
+					zhao.style.display="none";
+					login.style.display="none";
+				}
+				head.onmousedown=function(e){
+					e=e||event;
+					if(e.preventDefault){
+						e.preventDefault();
+					}
+					else{
+						e.returnValue=false;
+					}
+					if(e.button==1||e.button==0){
+						this.style.cursor="move";
+						var dx=e.clientX-login.offsetLeft;
+						var dy=e.clientY-login.offsetTop;
+						var x=login.offsetLeft;
+						var y=login.offsetHeight;
+						document.onmousemove=function(e){
+							e=e||event;	
+							 x=e.clientX-dx;
+							 y=e.clientY-dy;
+							//console.log(x)
+
+							if(x<=0){
+								x=0;
+							}
+							if(y<=0){
+								y=0;
+							}
+							if(x>=getClientWidth()-login.offsetWidth){
+								x=getClientWidth()-login.offsetWidth;
+							}
+							if(y>=getClientHeight()-login.offsetHeight){
+								y=getClientHeight()-login.offsetHeight;
+							}
+
+							login.style.left=x+"px";				
+							login.style.top=y+"px";
+
+						}
+						document.onmouseup=function(){
+							document.onmousemove=null;
+							head.style.cursor="auto";
+							var date= new Date();
+							date.setDate(date.getDate()+3);
+							setCookie("DX",x,date);
+							setCookie("DY",y,date);
+
+						}
+
+					}
+				}
+
+			}
+			
+		}
+		
+	</script>
+
+	
+		
+</head>
+		
+<body>
+	
+	<!-- <input type="text" id="text1"/>
+	<input type="checkbox" id="c1">
+	<label for="c1">记住用户名</label>
+	<input type="button" id="btn" value="登录"> -->
+	<input type="button" value="登录" id="btn1" >
+	<div id="cover"></div>
+	<div id="contain">
+		<div id="head">
+			<img class="img1" src="../js王新来作业/logo.png"/>
+			<span>登录百度账号</span>
+			<img class="img2" src="../js王新来作业/close.png"/>
+		</div>
+		<div id="login-form">
+			<img src="../js王新来作业/login.png"/>
+		</div>
+	</div>
+		
+</body>
+		
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" >
+	<style type="text/css">
+		
+	</style>
+	<script src="startMove.js"></script>
+				
+</head>
+		
+<body>
+	<div id="people"></div>
+	<script>
+		window.onload=function(){
+			// var p=document.getElementById("people");
+			// p.style.cssText="width:48px;height:40px";
+			// p.style.background="url(img1/1.gif)";
+			// document.onclick=function(e){
+			// 	e=e||event;		
+			// 	p.style.cssText="width:66px;height:45px;position:absolute";
+			// 	p.style.background="url(img1/2.gif)";
+			// 	startMove(p,{left:e.clientX,top:e.clientY},function(){
+			
+			// 	p.style.cssText="background:url(img1/1.gif);width:48px;height:40px;left:"+e.clientX+"px;top:"+e.clientY+"px;position:absolute"
+			// 		p.style.background="url(img1/1.gif)";
+			// 	p.style.width="48px";
+			// 	p.style.height="40px";									
+			// 	})			
+			// }
+			// document.onmouseup=function(e){
+			// }
+			var arr=[];
+			document.onmousedown=function(e){
+				e=e||event;
+				var p=document.getElementById("people");
+				p.style.width="66px";
+				p.style.height="45px";
+				p.style.position="absolute";
+				p.style.background="url(img1/2.gif)";
+				if(e.button==0||e.button==1){
+					
+					var s=createDiv(e);				
+					var obj={x:e.clientX,y:e.clientY,ov:s};
+					arr.push(obj);
+					document.onmousemove=function(e){
+						e=e||event;
+						var f=createDiv(e)
+						var obj1={x:e.clientX,y:e.clientY,ov:f};
+						arr.push(obj1);
+
+
+					}
+					document.onmouseup=function(){
+
+						document.onmousemove=null;
+						var timer=setInterval(function(){
+							if(arr.length==0){
+								clearInterval(timer);
+								p.style.background="url(img1/1.gif)";
+								p.style.width="48px";
+								p.style.height="40px";
+							}
+							else{
+								console.log(p)
+								p.style.left=arr[0].x+"px";
+								p.style.top=arr[0].y+"px";
+								document.body.removeChild(arr[0].ov)
+								arr.shift();
+							}
+							
+
+						},20)
+					}
+				}
+				
+
+				
+
+			}
+		}
+		function createDiv(e){
+			var oDiv=document.createElement("div");
+			oDiv.style.width=4+"px";
+			oDiv.style.height=4+"px"
+			oDiv.style.position="absolute";
+			oDiv.style.left=e.clientX+"px";
+			oDiv.style.top=e.clientY+"px";
+			oDiv.style.background="red";
+			document.body.appendChild(oDiv);
+			return oDiv
+
+		}
+
+	</script>
+
+			
+</body>
+		
+</html>

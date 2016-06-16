@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" >
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		ul{
+			width:3000px;
+			position:absolute;
+		}
+		ul li{
+			list-style:none;			
+			float:left;
+		}
+		#contain{
+			position:relative;
+			width:520px;
+			height:280px;
+			overflow:hidden;			
+			margin:50px auto;
+		}
+		#leftBtn{
+			display:block;
+			width:48px;
+			height:60px;
+			background:url(img1/btn.png);
+			position:absolute;
+			top:100px;
+			z-index:10;
+			left:-48px;
+			opacity:0;
+			filter:alpha(opacity=0); 
+		}
+		#rightBtn{
+			display:block;
+			width:48px;
+			height:60px;
+			background:url(img1/btn.png);
+			background-position:-48px 0px;
+			position:absolute;
+			top:100px;
+			right:-48px;
+			z-index:10;
+			opacity:0;
+			filter:alpha(opacity=0);
+		}
+		#nav{
+			width:70px;
+			height:18px;
+			background:url(img1/nav.png);
+			position:absolute;
+			left:220px;
+			z-index:10;
+			bottom:3px;
+		}
+		#nav span{
+			display:block;
+			width:10px;
+			height:10px;
+			border-radius:50%;
+			background:#efefef;
+			margin-right:4px;
+			margin-top:4px;
+			float:left;
+		}
+		#nav .on{
+			background:red;
+		}
+	</style>
+	<script src="startMove.js"></script>
+				
+</head>
+		
+<body>
+	<div id="contain">
+		<ul>
+			<li><img src="img1/b1.jpg"></li>
+			<li><img src="img1/b2.jpg"></li>
+			<li><img src="img1/b3.jpg"></li>
+			<li><img src="img1/b4.jpg"></li>
+			<li><img src="img1/b5.jpg"></li>
+		</ul>
+		<a href="#" id="leftBtn"></a>
+		<a href="#" id="rightBtn"></a>
+		<div id="nav">
+			<span class="on"></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+	
+
+
+	<script>
+		window.onload=function(){
+			var contain=document.getElementById("contain");
+			var leftBtn=document.getElementById("leftBtn");
+			var rightBtn=document.getElementById("rightBtn");
+			var oUl=document.getElementsByTagName("ul")[0];
+
+			//利用了追加 深度复制第一个图片cloneNode方法，解决无缝现象
+			var firstLi=oUl.children[0].cloneNode(true);
+			oUl.appendChild(firstLi);
+			var sp=document.getElementsByTagName("span");
+			var liWidth=oUl.children[0].offsetWidth;
+			oUl.style.width=oUl.children.length*liWidth+"px";
+			contain.onmouseover=function(){
+				startMove(leftBtn,{left:0,opacity:100});
+				startMove(rightBtn,{right:0,opacity:100});
+			}
+			contain.onmouseout=function(){
+				startMove(leftBtn,{left:-48,opacity:0});
+				startMove(rightBtn,{right:-48,opacity:0});
+			}
+			var index=0;
+			rightBtn.onclick=function(){
+				if(index==oUl.children.length-1){
+					index=0;
+					oUl.style.left="0px";//解决回滚问题使用强制拉回的方法
+				}		
+				index++;
+				console.log(index)
+				for(var i=0;i<sp.length;i++){
+					sp[i].className="";
+				}
+				if(index<5){
+					sp[index].className="on";
+				}
+				else{//解决深复制的第一张图片此时index=5,但是对应的是第一个小球，所以需设置sp[0]被选中,如果不做判断又因为sp的最大下标是4所以会报错
+					sp[0].className="on"
+				}
+				
+				startMove(oUl,{left:liWidth*index*-1});
+			}
+			leftBtn.onclick=function(){
+				if(index==0){
+					oUl.style.left=(oUl.children.length-1)*liWidth*-1+"px";
+					index=5;
+					
+				}		
+				index--;
+				
+				for(var i=0;i<sp.length;i++){
+					sp[i].className="";
+				}
+				/*if(index<0){
+					sp[sp.length-1].className="on";
+				}*/				
+				sp[index].className="on";				
+				startMove(oUl,{left:liWidth*index*-1});
+				
+				
+			}
+			for(var i=0;i<sp.length;i++){
+				sp[i].index=i;
+				sp[i].onclick=function(){
+					autoplay();
+					index=this.index;//解决点击后从哪张继续往后走,使用js动态创建属性的方法来保存每个的序号
+					for(var i=0;i<sp.length;i++){
+						sp[i].className="";
+					}
+					this.className="on";
+					startMove(oUl,{left:liWidth*this.index*-1});
+				}
+			}
+			var timer;
+			function autoplay(){
+				 clearInterval(timer);
+				 timer=setInterval(function(){
+					rightBtn.onclick()
+				},3000)
+			}
+			autoplay();//解决页面一刷新定时器就轮播的问题
+			
+
+		}
+		
+
+
+
+	</script>
+	
+		
+</body>
+		
+</html>

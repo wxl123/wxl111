@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" >
+	<style type="text/css">
+
+
+	</style>
+	<script src="startMove.js"></script>
+				
+</head>
+		
+<body>
+	
+
+
+	<script>
+		//1.字面量创建对象
+		// var obj={name:"张三",age:30,say:function(pname){console.log(pname+": 开始说话")}};
+		// obj.say("李四");
+		//2.工厂模式
+		// function createObj(pname,age){
+		// 	var obj=new Object();
+		// 	obj.name="张大";
+		// 	obj.age=30;
+		// 	obj.say=function(){
+		// 		console.log(pname+"开始说话:我的年龄是："+this.age)
+		// 	}
+		// 	return obj
+		// }
+		// var obj=createObj("望去",20);
+		// obj.say();
+		//3.构造函数创建对象
+		// function MyObject(){
+		// 	this.name="rr";
+		// 	this.age=55;
+			// this.say=function(){
+			// 	console.log(this.name+"开始说话：年龄是："+this.age)
+			// }
+
+		// }
+		// var obj1=new MyObject();
+		// var obj2=new MyObject();
+		// MyObject.prototype.say=function(){
+		// 	console.log(this.name+"开始说话：年龄是："+this.age)
+
+
+		// }//如果使用原型对像创建实例对象的属性，这样两个实例都指向了同一个原型对象下的say方法，指向是实例对象下有个__proto__(原型对像)下有个constructor( 指针)，全部都指向了同一个原型对象，所以再去判断console.log(obj1.say==obj2.say)是true
+
+	
+		//console.log(obj1.say==obj2.say)//如果将say的函数属性放在构造函数中是false 原因：虽然都是同一个say的上下文但是由于创建两个实例，say属性是一个函数，但是在内存中会被创建两个不同地址，及指针指向的地方不同导致false，如果属性值是函数且写在构造函数中这样以来就会造成内存过多造成用户体验度很差，这是我们需要想一个方法：节省内存，，我们需要将其创建在原型对像下这样由于constructor都指向的是同一个原型对象所以地址相同结果也就是true
+		// obj1.say=function(){//如果实例对像与原型对像有同名的属性不会覆盖原型对象，由于对象的查找机制的原则（查找的属性如果在实例对象下能找到，就不会再向下去查找原型对象下的属性了，，如果在实例对象下找不到，则会继续向原型对像下查找）、、但是属性同名的话会阻碍访问原型对象
+		// 	console.log("ok");
+		// }
+		// obj1.say();
+		// console.log(MyObject.prototype.say)//还是原来的,,注意访问原型对象下的属性时一定使用构造函数名.prototype
+
+		//如果实例对像下的属性与原型对象下的属性同名的话会先访问实例这时就阻碍了原型的 访问，解决方法：delete obj1.say  即删除实例对象下的属性，然后这样再去访问就能访问到原型对象下的了,方法如下两句：
+		// delete obj1.say;
+		// obj1.say();//此时就是调用原型对象下的say方法了
+		//继承
+		//原型继承
+/*		function Fn01(){
+			this.name="张二";
+			this.age=34;
+
+		}
+		Fn01.prototype.say=function(){
+			console.log(this.name+"开始说话"+this.age)
+		}
+		function Fn02(){
+			this.sex="男";
+		}
+		Fn02.prototype=new Fn01();//原型继承Fn01的
+		var fn02=new Fn02();
+		console.log(fn02.name)
+		//call() 继承
+		function Fn03(name,age){
+			this.name=name;//Fn04.name="张大"
+			this.age=age;//Fn04.age=56;因为已经将Fn03替换成了Fn04对象、、相当于为Fn04创建了age及name属性
+
+
+		}
+		function Fn04(name,age){
+			Fn03.call(this,name,age)//相当于Fn03(Fn04,name,age)//这里的this相当于Fn04,将Fn03对象替换成Fn04对象,第一个是被替换成的对象名称，后面是传递的FN04的形参就相当与name="张大",age=56,又将这两个数作为Fn03（）的实参传递到上面
+
+
+		}
+		var fn04=new Fn04("张大",56);
+		console.log(fn04.name+fn04.age)//此时会弹出"张大",56，也就是继承了Fn03的属性和方法
+
+		//apply()
+		function Fn05(name,age){
+			this.name=name;
+			this.age=age;
+
+		}
+		function Fn06(name,age){
+			Fn05.apply(this,arguments)
+
+		}
+		var fn06=new Fn06("张额",34);
+
+*/
+		function CreateDiv(json){
+			for(var i in json){
+				this[i]=json[i];
+			}
+
+		}
+		CreateDiv.prototype={
+			init:function(){
+				var div=document.createElement("div");
+				div.style.cssText="width:"+this.width+"px;height:"+this.height+"px;background:"+this.background+";";
+				document.body.appendChild(div);
+			}
+		}
+		window.onload=function(){
+			var creatediv=new CreateDiv({
+				width:300,
+				height:300,
+				background:"red"
+			})
+			creatediv.init();
+		}//使用对象的方式创建div
+
+	</script>
+		
+</body>
+		
+</html>

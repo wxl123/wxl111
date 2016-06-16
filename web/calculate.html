@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+<head>
+	<title>lianxi</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	
+	
+
+</head>
+
+<body>
+	<script>
+		/*var a=10000;
+		var a1=a*12;
+		var a2=a1+a1*0.05;
+		var a3=a2+a2*0.05;
+		var a4=a3+a3*0.05;
+		var a5=a4+a4*0.05;
+		var a6=a5+a5*0.05;
+		var a7=a6+a6*0.05;
+		var a8=a7+a7*0.05;
+		var a9=a8+a8*0.05;
+		var a10=a9+a9*0.05;
+		var a11=a10+a10*0.05;
+		var a12=a11+a11*0.05;
+		var a13=a12+a12*0.05;
+		var a14=a13+a13*0.05;
+		var a15=a14+a14*0.05;
+		var a16=a15+a15*0.05;
+		var a17=a16+a16*0.05;
+		var a18=a17+a17*0.05;
+		var a19=a18+a18*0.05;
+		var a20=a19+a19*0.05;
+		alert(a1+a2+a3+a4+a5+a6+a7+a8+a9+a10+a11+a12+a13+a14+a15+a16+a17+a18+a19+a20);
+		alert(a10);
+		var b=89;
+		var c=89%24
+		var d=(b-c)/24
+
+		alert(d+"天"+c+"小时");
+	*/
+	
+		
+	
+	</script>
+
+
+
+
+
+
+</body>
+	
+	<!--<input id=username type="text" value="1"/>
+	<input type="button" value="提交" onclick="alert(username.value);"/>-->
+	
+	<input id="add1" type="text"/>
+	+
+	<input id="add2" type="text"/>
+	<input type="button" value="提交" onclick="alert(parseFloat(add1.value)+parseFloat(add2.value))" />
+	
+	<br/>
+	<input id="add3" type="text"/>
+	-
+	<input id="add4" type="text"/>
+	<input type="button" value="提交" onclick="alert(parseFloat(add3.value)-parseFloat(add4.value))" />
+	
+	<br/>
+	<input id="add5" type="text"/>
+	*
+	<input id="add6" type="text"/>
+	<input type="button" value="提交" onclick="alert(parseFloat(add5.value)*parseFloat(add6.value))" />
+	<br/>
+	<input id="add7" type="text"/>
+	/
+	<input id="add8" type="text"/>
+	<input type="button" value="提交" onclick="alert(parseFloat(add7.value)/parseFloat(add8.value))" />
+	
+	<br/><br/><br/>
+
+	<input id="id1" type="text"/>
+	<select id="oper">
+		
+	
+		
+		<option>
+		+
+
+		</option>
+		<option>
+		-
+	
+		</option>
+		<option>
+		*
+
+		</option>
+		<option>
+		/
+
+		</option>
+
+	</select>
+	<input id="id2" type="text"/>
+
+	<input type="button"  value="计算" onclick="calculate()"/>
+
+	<script>
+		
+
+		function calculate()
+		{
+			    var num1=document.getElementById("id1").value;
+				var num2=document.getElementById("id2").value;
+				var result;
+				var oper=document.getElementById("oper").value;
+			
+			switch(oper)
+			{	
+				
+				
+				
+				case'+':
+						result=parseFloat(num1)+parseFloat(num2);
+
+				break;
+			
+				case'-':
+					result=parseFloat(num1)-parseFloat(num2);
+					
+				break;
+				
+				case'*':
+					result=parseFloat(num1)*parseFloat(num2);
+					
+				break;
+				
+				case'/':
+					result=parseFloat(num1)/parseFloat(num2);
+					
+				break;
+
+			}
+			
+			alert("运算结果是:"+result+"");
+
+		}
+
+	
+	</script>
+	
+
+		<script>
+			/*var year=2016;
+			var month=3;
+			var day=12;
+			//document.write("<div style='color:red; font-size:22px; font-style:italic;'>"+year+"年"+month+"月"+day+"日"+"</div>");
+			//document.write("<div style='font-size:22px;color:red; font-family:微软雅黑;font-style:italic;width:150px;height:150px;background:#ff0'>"+year+"年"+month+"月"+day+"日</div>")
+			document.write('<div style="color:red; font-size:22px; font-family:黑体">'+year+'年'+month+'月'+day+'日</div>')
+	
+	
+	
+			var a=0.1+0.2;
+			var b=0.3;
+			var c=a.toFixed(1);
+			alert(c==b);*/
+			
+	
+		</script>
+
+</html>

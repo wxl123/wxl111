@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+	<style type="text/css">
+
+		#left{
+			width:200px;
+			height:200px;
+			float:left;
+			margin-right:20px;
+
+		}
+		#main{
+			float:left;
+			padding-top:5px;
+		}
+		#main input{
+			display:block;
+			width:30px;
+			height:30px;
+			margin-bottom:15px;
+		}
+		#right{
+			width:200px;
+			height:200px;
+			float:left;
+			margin-left:20px
+		}
+		#pd{
+			width:200px;
+		}
+		#zj{
+			width:200px;
+
+		}
+
+		
+
+
+
+	</style>
+		
+	
+	<script src="../js王新来作业/module.js"></script>
+
+
+	
+		
+</head>
+		
+<body>
+	<div id="left">
+		<select id="pd" multiple="multiple" size="10">
+			<option>运动户外</option>
+			<option>通讯</option>
+			<option>日用百货</option>
+			<option>汽车</option>
+			<option>家电</option>
+			<option>母婴用品</option>
+			<option>童装</option>
+			<option>图书</option>
+			<option>彩票</option>
+			<option>医药保健</option>
+		</select>
+	</div>
+
+	<div id="main">
+		<input type="button" id="topbtn" value="↑">
+		<input type="button" id="downbtn" value="↓">
+		<input type="button" id="rightbtn" value="→">
+		<input type="button" id="leftbtn" value="←">
+	</div>
+	<div id="right">
+		<select id="zj" multiple="multiple" size="10">
+			
+		</select>
+		
+	</div>
+
+		
+
+	 
+	<script>
+
+		var topbtn=document.getElementById("topbtn");
+		var downbtn=document.getElementById("downbtn");
+		var select=document.getElementById("pd");
+		var rselect=document.getElementById("zj");
+		var rightbtn=document.getElementById("rightbtn");
+		var leftbtn=document.getElementById("leftbtn");
+
+		downbtn.onclick=function(){
+			var selectItem=select.options[select.selectedIndex];//获得选中的项，将其放在外边是页面一刷下就执行而此时select.selectedIndex值为-1，因为刷新时还没有被选中的项所以返回的是-1，再使用这个变量时就会提示undefined，所以将其放在里边
+			select.insertBefore(selectItem,select.options[select.selectedIndex+2]);// 将选中的项插入到后面
+
+		}
+		topbtn.onclick=function(){
+			var selectItem=select.options[select.selectedIndex]
+			select.insertBefore(selectItem,select.options[select.selectedIndex-1]);
+			
+
+		}
+		//向右添加
+		
+		rightbtn.onclick=function(){
+			
+			var ops=getAllOptions(select);
+
+			for(var i=0;i<ops.length;i++){
+				select.remove(ops[i].index);
+				ops[i].selected=false;
+				rselect.add(ops[i]);
+
+			}
+		}
+		//向左添加
+		leftbtn.onclick=function(){
+			
+			var ops=getAllOptions(rselect);
+
+			for(var i=0;i<ops.length;i++){
+				rselect.remove(ops[i].index);
+				ops[i].selected=false;
+				select.add(ops[i]);
+
+			}
+		}
+
+
+
+			
+	
+		
+
+
+		
+
+
+
+	</script>
+	
+	
+		
+</body
+		
+</html>

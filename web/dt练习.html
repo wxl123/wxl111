@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+	<style type="text/css">
+		/* *{margin:0;padding:0;}
+		ul li{
+			list-style:none;
+			float:left;
+			width:170px;
+			height:170px; 
+			border:1px solid #dddddd;
+			margin-right:20px;
+			margin-bottom:10px;
+		
+		}
+		ul{
+			width:768px;
+			margin:50px auto;
+		}
+		#big{
+			width:400px;
+			height:405px;
+			border:1px solid #dddddd;
+			float:left;
+			display:none;
+			position:absolute;
+		}
+		#clear{
+			clear:left;
+		} */
+		*{margin:0;padding:0;}
+		ul{
+			list-style:none;
+			width:768px;
+			margin:50px auto;			
+		}
+		ul li{
+			width:170px;
+			height:170px;
+			border:1px solid #ddd;
+			float:left;
+			margin-right:20px;
+			margin-bottom:10px;
+		}
+		#big{
+			width:400px;
+			height:405px;
+			border:1px solid #ddd;
+			display:none;
+			position:absolute;
+		}
+	 	.clear{
+	 		clear:left;
+	 	}
+	</style>
+	
+	<script src="../js王新来作业/module.js"></script>
+	<script>
+		window.onload=function(){
+		/*	var userList=document.getElementsByTagName("li");
+
+			var bigImg=document.getElementById("big");
+			for(var i=0; i<userList.length;i++){
+				userList[i].onmousemove=function(e){
+					e=e||event;
+					var imgList=this.children[0].src.split("/");
+					var filelist=imgList[imgList.length-1].split(".");
+					var filename=filelist[0]+"_big."+filelist[1];
+					bigImg.style.display="block";
+					bigImg.innerHTML="<img src='../js王新来作业/大图展示/"+filename+"'/>";
+					bigImg.style.left=e.clientX+10+"px";	
+					bigImg.style.top=e.clientY+10+"px";
+					if(parseInt(bigImg.style.left)>=getClientWidth()-bigImg.offsetWidth){
+						bigImg.style.left=e.clientX-10-bigImg.offsetWidth+"px";						
+					}
+					
+
+				}
+				userList[i].onmouseout=function(){
+					bigImg.style.display="none";
+
+				}
+				
+
+			}*/
+			var userLi=document.getElementsByTagName("li");
+			var big=document.getElementById("big");
+
+			for(var i=0;i<userLi.length;i++){
+				userLi[i].onmousemove=function(e){
+					e=e||event;
+					var imglist=this.children[0].src.split("/");
+					var filelist=imglist[imglist.length-1].split(".");
+					var filename=filelist[0]+"_big."+filelist[1];
+
+					big.style.display="block";	
+					big.innerHTML="<img src='../js王新来作业/大图展示/"+filename+"'>"
+					big.style.left=e.clientX+10+"px";
+					big.style.top=e.clientY+10+"px";
+					if(e.clientX+10>=getClientWidth()-big.offsetWidth){
+						big.style.left=e.clientX-10-big.offsetWidth+"px";
+					}
+
+
+
+				}
+				userLi[i].onmouseout=function(){
+					big.style.display="none";
+
+				}
+
+			}
+		}
+	
+	</script>
+
+	
+		
+</head>
+		
+<body>
+	<!-- <ul>
+		<li><img src="../js王新来作业/大图展示/shirt_1.jpg" alt=""></li>
+		<li><img src="../js王新来作业/大图展示/shirt_2.jpg" alt=""></li>
+		<li><img src="../js王新来作业/大图展示/shirt_3.jpg" alt=""></li>
+		<li><img src="../js王新来作业/大图展示/shirt_4.jpg" alt=""></li>
+	</ul>
+	<div id="clear"></div>
+	<div id="big"></div> -->
+	<ul>
+		<li><img src="../js王新来作业/大图展示/shirt_1.jpg" alt=""></li>
+		<li><img src="../js王新来作业/大图展示/shirt_2.jpg" alt=""></li>
+		<li><img src="../js王新来作业/大图展示/shirt_3.jpg" alt=""></li>
+		<li><img src="../js王新来作业/大图展示/shirt_4.jpg" alt=""></li>
+	</ul>
+	<div class="clear"></div>
+	<div id="big"></div>
+		
+</body>
+		
+</html>

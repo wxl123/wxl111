@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+	<style type="text/css">
+		.even{background:green;}
+		.odd{background:red;}
+		
+	</style>
+	
+	<script src="fz.js"></script>
+	<script>
+		window.onload=function(){
+			/*var b=document.getElementById("myDiv");
+			var c=getMychildNode(b);
+			for(var i=0;i<c.length;i++){
+				if((i+1)%2==0){
+					c[i].className="even";
+
+				}
+				else{
+					c[i].className="odd";
+				}
+
+			}
+			*/
+			var Btn=document.getElementById("btn");
+			var Content=document.getElementById("content")
+			Btn.onclick=function(){
+				Content.innerHTML="";
+				var rowValue=document.getElementById("rowvalue").value;
+				var colValue=document.getElementById("colvalue").value;
+				var tb=document.createElement("table");
+				tb.style.borderSpacing="0"
+				tb.border="1";
+				var tbody=document.createElement("tbody");
+				tb.appendChild(tbody);
+				for(var i=0;i<rowValue;i++){
+					var tr=document.createElement("tr");
+					for(var j=0;j<colValue;j++){
+						var td=document.createElement("td");
+						td.innerHTML=Math.floor(Math.random()*1000);
+						td.style.width="30px";
+						td.style.height="30px";
+						td.style.textAlign="center";
+						var n1=Math.floor(Math.random()*255);
+						var n2=Math.floor(Math.random()*255);
+						var n3=Math.floor(Math.random()*255);
+						td.style.backgroundColor="rgb("+n1+","+n2+","+n3+")";
+						tr.appendChild(td);
+					}
+					tbody.appendChild(tr);
+				}
+				Content.appendChild(tb);
+				
+			}	
+			
+			
+
+		
+			
+			
+		}
+
+		
+		
+	</script>
+
+	
+		
+</head>
+		
+<body>
+<!-- <div id="myDiv">
+	<div>1</div>
+	<div>2</div>
+	<div>3</div>
+	<div>4</div>
+	<div>5</div>
+	<div>6</div>
+	<div>7</div>
+	<div>8</div>
+	<div>9</div>
+	<div>10</div>
+	
+</div> -->
+<div>
+	行：<input type="text" id="rowvalue">
+	列：<input type="text" id="colvalue">
+	<input type="button" value="生成" id="btn">
+
+</div>
+<div id="content"></div>
+
+	
+
+
+	
+	
+	
+	
+		
+</body>
+		
+</html>

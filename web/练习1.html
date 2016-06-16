@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+	<script>
+	window.onload=function(){
+		
+
+	//冒泡排序
+			var paiXu=[3,5,3,2,6,8,9,10,15,19,25,0,-2];
+			
+			for(var i=0;i<paiXu.length-1;i++){
+				
+				for(var j=0;j<paiXu.length-i-1;j++){//每次将最大的放在后面所以在两两比较时每次都少比一次，为了减少时间和空间的复杂度，提升程序执行的效率。
+					if(paiXu[j]>paiXu[j+1]){
+						var temp=paiXu[j];
+							paiXu[j]=paiXu[j+1];
+							paiXu[j+1]=temp;
+					}
+				}
+
+			} 
+			alert(paiXu)
+/*
+			var arr1=["AA","BB","CC"];
+			arr1.forEach(function(a,b,c){
+
+				console.log(a);
+
+
+
+			});*/
+
+		
+			var arr2=[3,6,0,5,3,-1,6];
+
+			var	b=arr2.filter(function (a,b,c){
+
+				return a>2;
+
+			});
+		console.log(b);
+		/*var arr2=[3,6,0,5,3,-1,6];
+
+			var c=arr2.sort(function(a,b){
+
+				if (a>b){
+					return -1;
+
+				}
+				else if(a==b){
+					return 0;
+
+				}
+				else{
+					return 1;
+				}
+
+				
+
+
+			});
+			console.log(arr2);*/
+		
+
+			var arr=["yellow","red"];
+			var arr1=["yes","no",true,false];
+			arr.push("green");
+			arr1.splice(1,1,"ok",22);
+			
+			var result=arr.concat(arr1);
+
+			result.forEach(function(item){
+				document.write(item+"<br/>")
+
+
+			});
+			
+
+
+
+		}
+	</script>
+	
+		
+</head>
+		
+<body>
+	
+
+
+
+
+
+	
+	
+		
+</body>
+		
+</html>
